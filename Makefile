@@ -6,7 +6,10 @@ ISDKF=-isysroot $(ISDKP)
 
 all: luajit.deb
 
-luajit.deb: build/luajit build/libluajit.so DEBIAN/*
+patch:
+	patch luajit/src/lj_arch.h enable_jit.patch
+
+luajit.deb: build/luajit build/libluajit.so
 	mkdir -p tmp
 	mkdir -p tmp/usr
 	mkdir -p tmp/usr/local
