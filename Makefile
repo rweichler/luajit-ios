@@ -6,7 +6,7 @@ ISDKF=-isysroot $(ISDKP)
 
 all: luajit.deb
 
-luajit.deb: build/luajit build/libluajit.so
+luajit.deb: build/luajit build/libluajit.so DEBIAN/*
 	mkdir -p tmp
 	mkdir -p tmp/usr
 	mkdir -p tmp/usr/local
