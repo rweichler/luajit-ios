@@ -1,0 +1,8 @@
+Package: luajit
+Name: LuaJIT
+Version: 2.1.0-beta2
+Architecture: iphoneos-arm
+Description: the best JIT ever
+Maintainer: Reed Weichler <rweichler+cydia@gmail.com>
+Author: Mike Pall
+Section: Development
