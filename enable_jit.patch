@@ -1,0 +1,17 @@
+--- lj_arch.h	2016-03-06 19:18:53.000000000 -0800
++++ lj_arch_new.h	2016-03-06 19:20:03.000000000 -0800
+@@ -427,14 +427,6 @@
+ #define LJ_DUALNUM		0
+ #endif
+ 
+-#if LJ_TARGET_IOS || LJ_TARGET_CONSOLE
+-/* Runtime code generation is restricted on iOS. Complain to Apple, not me. */
+-/* Ditto for the consoles. Complain to Sony or MS, not me. */
+-#ifndef LUAJIT_ENABLE_JIT
+-#define LJ_OS_NOJIT		1
+-#endif
+-#endif
+-
+ /* 64 bit GC references. */
+ #if LJ_TARGET_GC64
+ #define LJ_GC64			1
