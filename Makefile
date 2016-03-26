@@ -1,6 +1,6 @@
 ISDKP=$(shell xcrun --sdk iphoneos --show-sdk-path)
 ICC=$(shell xcrun --sdk iphoneos --find clang)
-ISDKF=-isysroot $(ISDKP)
+ISDKF=-isysroot $(ISDKP) -mios-version-min=3.0
 
 
 
