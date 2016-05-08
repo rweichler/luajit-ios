@@ -1,6 +1,6 @@
 **I HAVE A PRECOMPILED VERSION ON THE REPO http://cydia.r333d.com**
 
-Since the arm64 JIT is not complete, you will only get JIT on 32-bit.
+Since the arm64 JIT is not complete, you will only get JIT on 32-bit. However the FFI is enough reason to use this over regular Lua.
 
 # Prerequisites
 
