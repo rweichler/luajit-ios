@@ -1,13 +1,10 @@
-ISDKP=$(shell xcrun --sdk iphoneos --show-sdk-path)
+ISDKP=$(shell xcrun --sdk iphoneos --show-sdk-path) -mios-version-min=6.0
 ICC=$(shell xcrun --sdk iphoneos --find clang)
 IOS9_SHIT=-Wl,-segalign,4000
 ISDKF=-isysroot $(ISDKP)
 
 
 all: luajit.deb
-
-patch:
-	patch luajit/src/lj_arch.h enable_jit.patch
 
 luajit.deb: build/luajit build/libluajit.so
 	mkdir -p tmp
@@ -21,7 +18,7 @@ luajit.deb: build/luajit build/libluajit.so
 	dpkg-deb -Zgzip -b tmp
 	mv tmp.deb $@
 
-build/luajit: build/luajit_armv7
+build/luajit: build/luajit_armv7 build/luajit_arm64
 	@ECHO
 	@ECHO MERGING SLICES
 	@ECHO
@@ -36,14 +33,16 @@ build/luajit_armv7:
 	@ECHO BUILDING ARMv7
 	@ECHO
 	cd luajit && $(MAKE) clean
-	cd luajit && $(MAKE) DEFAULT_CC=clang HOST_CC="clang -m32 -arch i386" CROSS="`dirname $(ICC)`/" TARGET_FLAGS="-arch armv7 $(ISDKF)" TARGET_SYS=iOS TARGET_LDFLAGS="$(IOS9_SHIT)" XCFLAGS="-DLUAJIT_ENABLE_LUA52COMPAT"
+	cd luajit && $(MAKE) DEFAULT_CC=clang HOST_CC="clang -m32 -arch i386" CROSS="`dirname $(ICC)`/" TARGET_FLAGS="-arch armv7 $(ISDKF)" TARGET_SYS=iOS TARGET_LDFLAGS="$(IOS9_SHIT)" XCFLAGS="-DLUAJIT_ENABLE_LUA52COMPAT -DLUAJIT_ENABLE_JIT"
 	mv luajit/src/luajit build/luajit_armv7
 	mv luajit/src/libluajit.so build/libluajit_armv7.so
+
+build/luajit_arm64:
 	@ECHO
 	@ECHO BUILDING ARM64
 	@ECHO
 	cd luajit && $(MAKE) clean
-	cd luajit && make DEFAULT_CC="clang" CROSS="`dirname $(ICC)`/" TARGET_FLAGS="-arch arm64 $(ISDKF)" TARGET_SYS=iOS TARGET_LDFLAGS="$(IOS9_SHIT)" XCFLAGS="-DLUAJIT_ENABLE_LUA52COMPAT"
+	cd luajit && make DEFAULT_CC="clang" CROSS="`dirname $(ICC)`/" TARGET_FLAGS="-arch arm64 $(ISDKF)" TARGET_SYS=iOS TARGET_LDFLAGS="$(IOS9_SHIT)" XCFLAGS="-DLUAJIT_ENABLE_LUA52COMPAT -DLUAJIT_ENABLE_JIT"
 	mv luajit/src/luajit build/luajit_arm64
 	mv luajit/src/libluajit.so build/libluajit_arm64.so
 

@@ -1,6 +1,6 @@
 **I HAVE A PRECOMPILED VERSION ON THE REPO http://cydia.r333d.com**
 
-Since the arm64 JIT is not complete, you will only get JIT on 32-bit. Hopefully Mike Pall finishes it soon.
+The arm64 JIT is still a WIP, so don't be as mind-blowing as on other architectures. Through limited testing, it works pretty well, though!
 
 # Prerequisites
 
@@ -11,7 +11,6 @@ Since the arm64 JIT is not complete, you will only get JIT on 32-bit. Hopefully 
 
 ```
 git submodule update --init
-make patch
 make
 ```
 
