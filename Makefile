@@ -1,19 +1,20 @@
+# I know this code is disgusting
+# But so is every other Makefile in existence
+
 ISDKP=$(shell xcrun --sdk iphoneos --show-sdk-path) -mios-version-min=6.0
 ICC=$(shell xcrun --sdk iphoneos --find clang)
 IOS9_SHIT=-Wl,-segalign,4000
 ISDKF=-isysroot $(ISDKP)
-
 
 all: luajit.deb
 
 luajit.deb: build/luajit build/libluajit.so
 	mkdir -p tmp
 	mkdir -p tmp/usr
-	mkdir -p tmp/usr/local
-	mkdir -p tmp/usr/local/lib
-	mkdir -p tmp/usr/local/bin
-	cp build/luajit tmp/usr/local/bin/
-	cp build/libluajit.so tmp/usr/local/lib/libluajit-5.1.2.dylib
+	mkdir -p tmp/usr/lib
+	mkdir -p tmp/usr/bin
+	cp build/luajit tmp/usr/bin/
+	cp build/libluajit.so tmp/usr/lib/libluajit-5.1.2.dylib
 	cp -r DEBIAN tmp/
 	dpkg-deb -Zgzip -b tmp
 	mv tmp.deb $@
@@ -26,6 +27,10 @@ build/luajit: build/luajit_armv7 build/luajit_arm64
 	lipo -arch armv7 build/luajit_armv7 -arch arm64 build/luajit_arm64 -create -output build/luajit
 	ldid -S build/luajit
 	ldid -S build/libluajit.so
+
+# if you're judging me for copy pasting essentially the same thing
+# twice, consider this: at least this won't make people who are used
+# to sane programming languages want to tear their eyes out ;)
 
 build/luajit_armv7:
 	mkdir -p build
