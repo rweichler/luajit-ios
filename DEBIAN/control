@@ -1,9 +1,9 @@
 Package: luajit
 Name: LuaJIT
-Version: 2.1.0~beta2.04
+Version: 2.1.0~beta2.05
 Architecture: iphoneos-arm
 Description: the best JIT ever
 Maintainer: Reed Weichler <rweichler+cydia@gmail.com>
 Author: Mike Pall
 Section: Development
-Depends firmware (>= 6.0)
+Depends: firmware (>= 6.0)
