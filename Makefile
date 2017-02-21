@@ -28,10 +28,6 @@ build/luajit: build/luajit_armv7 build/luajit_arm64
 	ldid -S build/luajit
 	ldid -S build/libluajit.so
 
-# if you're judging me for copy pasting essentially the same thing
-# twice, consider this: at least this won't make people who are used
-# to sane programming languages want to tear their eyes out ;)
-
 build/luajit_armv7:
 	mkdir -p build
 	@ECHO
