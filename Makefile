@@ -24,6 +24,7 @@ build/luajit: build/luajit_armv7 build/luajit_arm64
 	@ECHO MERGING SLICES
 	@ECHO
 	lipo -arch armv7 build/libluajit_armv7.so -arch arm64 build/libluajit_arm64.so -create -output build/libluajit.so
+	lipo -arch armv7 build/libluajit_armv7.a -arch arm64 build/libluajit_arm64.a -create -output build/libluajit.a
 	lipo -arch armv7 build/luajit_armv7 -arch arm64 build/luajit_arm64 -create -output build/luajit
 	ldid -S build/luajit
 	ldid -S build/libluajit.so
@@ -37,6 +38,7 @@ build/luajit_armv7:
 	cd luajit && $(MAKE) DEFAULT_CC=clang HOST_CC="clang -m32 -arch i386" CROSS="`dirname $(ICC)`/" TARGET_FLAGS="-arch armv7 $(ISDKF)" TARGET_SYS=iOS TARGET_LDFLAGS="$(IOS9_SHIT)" XCFLAGS="-DLUAJIT_ENABLE_LUA52COMPAT -DLUAJIT_ENABLE_JIT"
 	mv luajit/src/luajit build/luajit_armv7
 	mv luajit/src/libluajit.so build/libluajit_armv7.so
+	mv luajit/src/libluajit.a build/libluajit_armv7.a
 
 build/luajit_arm64:
 	@ECHO
@@ -46,6 +48,7 @@ build/luajit_arm64:
 	cd luajit && make DEFAULT_CC="clang" CROSS="`dirname $(ICC)`/" TARGET_FLAGS="-arch arm64 $(ISDKF)" TARGET_SYS=iOS TARGET_LDFLAGS="$(IOS9_SHIT)" XCFLAGS="-DLUAJIT_ENABLE_LUA52COMPAT -DLUAJIT_ENABLE_JIT"
 	mv luajit/src/luajit build/luajit_arm64
 	mv luajit/src/libluajit.so build/libluajit_arm64.so
+	mv luajit/src/libluajit.a build/libluajit_arm64.a
 
 clean:
 	cd luajit && $(MAKE) clean
