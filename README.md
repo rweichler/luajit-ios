@@ -2,6 +2,8 @@
 
 The arm64 JIT is unstable. But the ffi works.
 
+Unfortunately, arm64e will never be supported, LuaJIT's interpreter is incompatible with Apple's PAC implementation.
+
 # Prerequisites
 
 * Mac OS X (duh)
